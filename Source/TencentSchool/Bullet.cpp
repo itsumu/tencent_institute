@@ -2,7 +2,10 @@
 
 
 #include "Bullet.h"
+
 #include "Kismet/GameplayStatics.h"
+#include "Math/UnrealMathUtility.h"
+
 #include "Target.h"
 #include "MyCharacter.h"
 
@@ -31,11 +34,13 @@ void ABullet::Tick(float DeltaTime)
 }
 
 void ABullet::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit) {
-	if (OtherActor->GetClass()->GetSuperClass() == ATarget::StaticClass()) {
+	if (OtherActor->GetClass()->GetSuperClass() == ATarget::StaticClass()) { // Hit the target
 		if (GEngine) {
 			GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Yellow, "Bullet hit target");
 		}
 
+		// todo: Transfer to event trigger
+		// Gain score for hitting the target
 		ACharacter* PlayerCharacter = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
 		if (PlayerCharacter == nullptr) {
 			GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Red, "Player character not accessible");
@@ -45,12 +50,13 @@ void ABullet::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrim
 
 		MyCharacter->GainScore();
 
+		// Destroy target and spawn new one in a random range
 		OtherActor->Destroy();
 
-		FRotator Rotation;
-		FVector Location(-300, 120, 280);
+		FRotator Rotation(90, 0, 0);
+		FVector Location(-300 + FMath::RandRange(-100, 100), 120 + FMath::RandRange(-100, 100), 280 + FMath::RandRange(-100, 100));
 
-		AActor* pawn = GetWorld()->SpawnActor<ATarget>(ATarget::StaticClass(), Location, Rotation);
+		AActor* pawn = GetWorld()->SpawnActor<ATarget>(this->NewTargetType, Location, Rotation);
 		if (pawn == nullptr) {
 			GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Red, "New target not spawned");
 		}

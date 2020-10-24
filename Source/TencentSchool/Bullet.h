@@ -27,6 +27,9 @@ public:
 	UPROPERTY()
 	UCapsuleComponent* Collider;
 
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class ATarget> NewTargetType;
+
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, 
 		const FHitResult& Hit);
