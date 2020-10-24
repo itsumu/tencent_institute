@@ -2,7 +2,9 @@
 
 
 #include "Bullet.h"
+#include "Kismet/GameplayStatics.h"
 #include "Target.h"
+#include "MyCharacter.h"
 
 // Sets default values
 ABullet::ABullet()
@@ -31,7 +33,27 @@ void ABullet::Tick(float DeltaTime)
 void ABullet::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit) {
 	if (OtherActor->GetClass()->GetSuperClass() == ATarget::StaticClass()) {
 		if (GEngine) {
-			GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Yellow, "ABullet OnHit---------");
+			GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Yellow, "Bullet hit target");
+		}
+
+		ACharacter* PlayerCharacter = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
+		if (PlayerCharacter == nullptr) {
+			GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Red, "Player character not accessible");
+			return;
+		}
+		AMyCharacter* MyCharacter = Cast<AMyCharacter>(PlayerCharacter);
+
+		MyCharacter->GainScore();
+
+		OtherActor->Destroy();
+
+		FRotator Rotation;
+		FVector Location(-300, 120, 280);
+
+		AActor* pawn = GetWorld()->SpawnActor<ATarget>(ATarget::StaticClass(), Location, Rotation);
+		if (pawn == nullptr) {
+			GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Red, "New target not spawned");
 		}
 	}
+	this->Destroy();
 }

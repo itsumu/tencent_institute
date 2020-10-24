@@ -30,4 +30,7 @@ public:
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, 
 		const FHitResult& Hit);
+
+	UFUNCTION(BlueprintImplementableEvent, category = "MyEvent")
+	void HitTarget();
 };
