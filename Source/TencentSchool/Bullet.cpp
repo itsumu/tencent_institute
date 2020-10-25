@@ -33,16 +33,20 @@ void ABullet::Tick(float DeltaTime)
 
 }
 
-void ABullet::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit) {
-	if (OtherActor->GetClass()->GetSuperClass() == ATarget::StaticClass()) { // Hit the target
-		if (GEngine) {
+void ABullet::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit) 
+{
+	if (OtherActor->GetClass()->GetSuperClass() == ATarget::StaticClass()) 
+	{ // Hit the target
+		if (GEngine) 
+		{
 			GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Yellow, "Bullet hit target");
 		}
 
 		// todo: Transfer to event trigger
 		// Gain score for hitting the target
 		ACharacter* PlayerCharacter = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
-		if (PlayerCharacter == nullptr) {
+		if (PlayerCharacter == nullptr) 
+		{
 			GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Red, "Player character not accessible");
 			return;
 		}
@@ -57,7 +61,8 @@ void ABullet::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrim
 		FVector Location(-300 + FMath::RandRange(-100, 100), 120 + FMath::RandRange(-100, 100), 280 + FMath::RandRange(-100, 100));
 
 		AActor* pawn = GetWorld()->SpawnActor<ATarget>(this->NewTargetType, Location, Rotation);
-		if (pawn == nullptr) {
+		if (pawn == nullptr) 
+		{
 			GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Red, "New target not spawned");
 		}
 	}

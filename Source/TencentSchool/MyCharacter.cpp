@@ -32,6 +32,7 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 }
 
-void AMyCharacter::GainScore() {
+void AMyCharacter::GainScore() 
+{
 	this->Score += 10;
 }
