@@ -33,4 +33,4 @@ Android executable + Single player video + Multi-player video [*Link*](https://s
 - Editable (Only nickname for fairness XD) score board
 - Load scores in history & Save current scores
 
- Android executable + Video demo [*Link*](........)
+ Android executable + Video demo [*Link*](https://share.weiyun.com/WpKO2cTP)
