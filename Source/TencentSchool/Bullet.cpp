@@ -4,6 +4,7 @@
 #include "Bullet.h"
 
 #include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetSystemLibrary.h"
 #include "Math/UnrealMathUtility.h"
 
 #include "Target.h"
@@ -65,6 +66,12 @@ void ABullet::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrim
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Red, "New target not spawned");
 		}
+	} 
+	else
+	{ // Not hit the target, finish the game
+		this->NoHit();
+		//TEnumAsByte<EQuitPreference::Type> QuitPreference;
+		//UKismetSystemLibrary::QuitGame(GetWorld(), UGameplayStatics::GetPlayerController(GetWorld(), 0), QuitPreference, false);
 	}
 	this->Destroy();
 }

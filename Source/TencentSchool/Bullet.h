@@ -36,4 +36,7 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent, category = "MyEvent")
 	void HitTarget();
+
+	UFUNCTION(BlueprintImplementableEvent, category = "MyEvent")
+	void NoHit();
 };

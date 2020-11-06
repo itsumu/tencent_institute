@@ -1,4 +1,36 @@
 # tencent_institute
-Assignment 1: Android executable + Video demo [*Link*](https://share.weiyun.com/pM9dF1tx)
+## Assignment 1
 
-Assignment 2: Android executable + Single player video + Multi-player video [*Link*](https://share.weiyun.com/PYU0Wjyx)
+### Functions
+- Construct a simple Android demo from scratch
+
+Android executable + Video demo [*Link*](https://share.weiyun.com/pM9dF1tx)
+
+## Assignment 2
+
+### Rules
+- Shoot target to gain scores
+
+### Functions
+- Projectile
+- Character shooting & movement animation 
+- Dynamic target & Score display
+- Multi-player gaming on a local network 
+
+Android executable + Single player video + Multi-player video [*Link*](https://share.weiyun.com/PYU0Wjyx)
+
+## Assignment 3
+
+### Rules
+- Reload before running out of ammos
+- Jumping costs energy & Unable to jump when exhausted
+- Game is over once the target is not shooted
+
+### Functions
+- Player status display: Health (Always healthy), Energy, Ammos
+- Lose energy instantly for jumping & Energy auto recovering while resting on the ground
+- Bullet reloading
+- Editable (Only nickname for fairness XD) score board
+- Load scores in history & Save current scores
+
+ Android executable + Video demo [*Link*](........)
