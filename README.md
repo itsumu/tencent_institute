@@ -34,3 +34,14 @@ Android executable + Single player video + Multi-player video [*Link*](https://s
 - Load scores in history & Save current scores
 
  Android executable + Video demo [*Link*](https://share.weiyun.com/WpKO2cTP)
+
+
+## Assignment 4 (WIP)
+
+### Rules
+
+
+### Functions
+- Play different jump animation for walking and idling
+- Animate recoil
+- Punch animation
