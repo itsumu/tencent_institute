@@ -42,6 +42,8 @@ Android executable + Single player video + Multi-player video [*Link*](https://s
 
 
 ### Functions
-- Play different jump animation for walking and idling
-- Animate recoil
-- Punch animation
+- Play different jump animation for walking and idling (Tap screen to jump)
+- Animate recoil (Upper body)
+- Punch animation (Upper body)
+- Hold key alt (on PC) to enable camera to orbit the player's pawn
+- Head facing towards camera while key alt is held
