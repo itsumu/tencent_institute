@@ -45,4 +45,4 @@ Android executable + Video demo [*Link*](https://share.weiyun.com/WpKO2cTP)
 - Hold key alt (on PC) or view button (on Android) to enable camera to orbit the player's pawn
 - Head facing towards camera while key alt is held
 
-Android executable + Video demo [*Link*]()
+Android executable + Video demo [*Link*](https://share.weiyun.com/DLF6sqV7)
