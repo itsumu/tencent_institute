@@ -33,17 +33,16 @@ Android executable + Single player video + Multi-player video [*Link*](https://s
 - Editable (Only nickname for fairness XD) score board
 - Load scores in history & Save current scores
 
- Android executable + Video demo [*Link*](https://share.weiyun.com/WpKO2cTP)
+Android executable + Video demo [*Link*](https://share.weiyun.com/WpKO2cTP)
 
 
-## Assignment 4 (WIP)
-
-### Rules
-
+## Assignment 4
 
 ### Functions
 - Play different jump animation for walking and idling (Tap screen to jump)
 - Animate recoil (Upper body)
 - Punch animation (Upper body)
-- Hold key alt (on PC) to enable camera to orbit the player's pawn
+- Hold key alt (on PC) or view button (on Android) to enable camera to orbit the player's pawn
 - Head facing towards camera while key alt is held
+
+Android executable + Video demo [*Link*]()

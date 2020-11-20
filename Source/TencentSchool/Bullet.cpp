@@ -38,10 +38,10 @@ void ABullet::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrim
 {
 	if (OtherActor->GetClass()->GetSuperClass() == ATarget::StaticClass()) 
 	{ // Hit the target
-		if (GEngine) 
+		/*if (GEngine) 
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Yellow, "Bullet hit target");
-		}
+		}*/
 
 		// todo: Transfer to event trigger
 		// Gain score for hitting the target
