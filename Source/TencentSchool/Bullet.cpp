@@ -8,6 +8,7 @@
 #include "Math/UnrealMathUtility.h"
 
 #include "Target.h"
+#include "AIPawn.h"
 #include "MyCharacter.h"
 
 // Sets default values
@@ -15,8 +16,6 @@ ABullet::ABullet()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	//FScriptDelegate DelegateHit;
-	//DelegateHit.BindUFunction(this, "OnHit");
 }
 
 // Called when the game starts or when spawned
@@ -36,7 +35,9 @@ void ABullet::Tick(float DeltaTime)
 
 void ABullet::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit) 
 {
-	if (OtherActor->GetClass()->GetSuperClass() == ATarget::StaticClass()) 
+	GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Red, OtherActor->GetName());
+
+	if (OtherActor->IsA<ATarget>())
 	{ // Hit the target
 		/*if (GEngine) 
 		{
@@ -51,7 +52,7 @@ void ABullet::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrim
 			GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Red, "Player character not accessible");
 			return;
 		}
-		AMyCharacter* MyCharacter = Cast<AMyCharacter>(PlayerCharacter);
+		auto MyCharacter = Cast<AMyCharacter>(PlayerCharacter);
 
 		MyCharacter->GainScore();
 
@@ -67,6 +68,11 @@ void ABullet::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrim
 			GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Red, "New target not spawned");
 		}
 	} 
+	else if (OtherActor->IsA<AAIPawn>())
+	{ // Hit the AI
+		auto pawn = Cast<AAIPawn>(OtherActor);
+		pawn->GotHit(Hit.BoneName);
+	}
 	else
 	{ // Not hit the target, finish the game
 		this->NoHit();

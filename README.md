@@ -46,3 +46,14 @@ Android executable + Video demo [*Link*](https://share.weiyun.com/WpKO2cTP)
 - Head facing towards camera while key alt is held
 
 Android executable + Video demo [*Link*](https://share.weiyun.com/DLF6sqV7)
+
+## Assignment 5
+
+### Rules
+- Pick up your grenade gun to mess the world!
+
+### Functions
+- Weapon pickup & drop when player move onto it
+- Two weapon modes
+- Explosion effect for grenade gun
+

@@ -4,6 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Components/CapsuleComponent.h"
+
+#include "Gun.h"
+
 #include "MyCharacter.generated.h"
 
 UCLASS()
@@ -26,9 +30,23 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UPROPERTY()
+		UCapsuleComponent* Collider;
+
 	UPROPERTY(BlueprintReadWrite)
-	int Score;
+		int Score;
+
+	UPROPERTY(BlueprintReadWrite)
+		AGun* EquippedGun;
 
 	UFUNCTION()
-	void GainScore();
+		void GainScore();
+
+	UFUNCTION()
+		void OnBeginOverlap(UPrimitiveComponent* OverlappedComponent,
+			AActor* OtherActor,
+			UPrimitiveComponent* OtherComp,
+			int32 OtherBodyIndex,
+			bool bFromSweep,
+			const FHitResult &SweepResult);
 };
