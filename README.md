@@ -56,4 +56,6 @@ Android executable + Video demo [*Link*](https://share.weiyun.com/DLF6sqV7)
 - Weapon pickup & drop when player move onto it
 - Two weapon modes
 - Explosion effect for grenade gun
+- Different physical materials
 
+Android executable + Video demo [*Link*](https://share.weiyun.com/laGOkHSQ)

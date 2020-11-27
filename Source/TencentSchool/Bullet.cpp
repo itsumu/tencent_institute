@@ -35,7 +35,7 @@ void ABullet::Tick(float DeltaTime)
 
 void ABullet::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit) 
 {
-	GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Red, OtherActor->GetName());
+	//GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Red, OtherActor->GetName());
 
 	if (OtherActor->IsA<ATarget>())
 	{ // Hit the target
@@ -75,7 +75,7 @@ void ABullet::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrim
 	}
 	else
 	{ // Not hit the target, finish the game
-		this->NoHit();
+		////this->NoHit();
 		//TEnumAsByte<EQuitPreference::Type> QuitPreference;
 		//UKismetSystemLibrary::QuitGame(GetWorld(), UGameplayStatics::GetPlayerController(GetWorld(), 0), QuitPreference, false);
 	}
