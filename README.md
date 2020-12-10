@@ -59,3 +59,9 @@ Android executable + Video demo [*Link*](https://share.weiyun.com/DLF6sqV7)
 - Different physical materials
 
 Android executable + Video demo [*Link*](https://share.weiyun.com/laGOkHSQ)
+
+## Assignment 6
+
+### Functions
+- Game on network
+- 
