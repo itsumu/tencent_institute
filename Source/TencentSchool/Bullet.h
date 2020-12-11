@@ -16,7 +16,6 @@ class TENCENTSCHOOL_API ABullet : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ABullet();
-	ABullet(ACharacter* CurrentShooter);
 
 protected:
 	// Called when the game starts or when spawned

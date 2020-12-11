@@ -70,3 +70,5 @@ Android executable + Video demo [*Link*](https://share.weiyun.com/laGOkHSQ)
 - A character would take damage (health decrease) when get hit by other player
 - Die & Respawn
 - Scoreboard displaying player's Kill & Die
+
+Android executable + Video demo [*Link*](https://share.weiyun.com/L1JIDOIh)

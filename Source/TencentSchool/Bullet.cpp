@@ -18,12 +18,6 @@ ABullet::ABullet()
 	PrimaryActorTick.bCanEverTick = true;
 }
 
-ABullet::ABullet(ACharacter* CurrentShooter): Shooter(Shooter)
-{
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-}
-
 // Called when the game starts or when spawned
 void ABullet::BeginPlay()
 {
@@ -80,7 +74,7 @@ void ABullet::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrim
 			//GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Yellow, "Server hit another player!!!!!!");
 			UKismetSystemLibrary::PrintText(GetWorld(), FText::FromString("Server hit another player!!!"));
 			auto PlayerGotHit = Cast<AMyCharacter>(OtherActor);
-			PlayerGotHit->TakeDamage();
+			PlayerGotHit->GotDamage();
 
 			if (!PlayerGotHit->Alive)
 			{

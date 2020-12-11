@@ -63,8 +63,8 @@ public:
 	UFUNCTION()
 		void GainScore();
 
-	UFUNCTION(BlueprintCallable, Category = "Health")
-		float TakeDamage(float DamageTaken = 0.2f);
+	UFUNCTION(BlueprintCallable)
+		float GotDamage(float DamageTaken = 0.2f);
 
 	UFUNCTION(BlueprintCallable)
 		void Die();

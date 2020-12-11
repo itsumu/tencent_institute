@@ -56,7 +56,7 @@ void AMyCharacter::GainScore()
 	this->Score += 10;
 }
 
-float AMyCharacter::TakeDamage(float DamageTaken)
+float AMyCharacter::GotDamage(float DamageTaken)
 {
 	float HealthBefore = this->Health;
 	
