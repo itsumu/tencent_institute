@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Components/CapsuleComponent.h"
+
 #include "Bullet.generated.h"
 
 UCLASS()
@@ -15,6 +16,7 @@ class TENCENTSCHOOL_API ABullet : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ABullet();
+	ABullet(ACharacter* CurrentShooter);
 
 protected:
 	// Called when the game starts or when spawned
@@ -25,10 +27,13 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY()
-	UCapsuleComponent* Collider;
+		UCapsuleComponent* Collider;
 
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<class ATarget> NewTargetType;
+		TSubclassOf<class ATarget> NewTargetType;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		ACharacter* Shooter;
 
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, 

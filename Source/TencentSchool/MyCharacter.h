@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Components/CapsuleComponent.h"
+#include "Particles/ParticleSystemComponent.h"
 
 #include "Gun.h"
 
@@ -30,17 +31,46 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	// Property replication
+	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
+	const float MaxHealth = 1.0f;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated)
+		float Health;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Replicated)
+		int Score;
+
+	UPROPERTY(BlueprintReadWrite, Replicated)
+		int KillCount;
+
+	UPROPERTY(BlueprintReadWrite, Replicated)
+		int DeathCount;
+
+	UPROPERTY(BlueprintReadWrite, Replicated)
+		bool Alive;
+
 	UPROPERTY()
 		UCapsuleComponent* Collider;
 
-	UPROPERTY(BlueprintReadWrite)
-		int Score;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		UParticleSystem* ReviveEffect;
 
 	UPROPERTY(BlueprintReadWrite)
 		AGun* EquippedGun;
 
 	UFUNCTION()
 		void GainScore();
+
+	UFUNCTION(BlueprintCallable, Category = "Health")
+		float TakeDamage(float DamageTaken = 0.2f);
+
+	UFUNCTION(BlueprintCallable)
+		void Die();
+
+	UFUNCTION(BlueprintCallable)
+		void KillOne();
 
 	UFUNCTION()
 		void OnBeginOverlap(UPrimitiveComponent* OverlappedComponent,

@@ -7,12 +7,18 @@
 #include "Kismet/KismetSystemLibrary.h"
 #include "Math/UnrealMathUtility.h"
 
+#include "MyCharacter.h"
 #include "Target.h"
 #include "AIPawn.h"
-#include "MyCharacter.h"
 
 // Sets default values
 ABullet::ABullet()
+{
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
+}
+
+ABullet::ABullet(ACharacter* CurrentShooter): Shooter(Shooter)
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -36,36 +42,30 @@ void ABullet::Tick(float DeltaTime)
 void ABullet::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit) 
 {
 	//GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Red, OtherActor->GetName());
+	//GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Yellow, OtherActor->StaticClass()->GetName());
 
 	if (OtherActor->IsA<ATarget>())
 	{ // Hit the target
-		/*if (GEngine) 
+		if (GetLocalRole() == ROLE_Authority)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Yellow, "Bullet hit target");
-		}*/
+			//GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Yellow, "Bullet hit target");
 
-		// todo: Transfer to event trigger
-		// Gain score for hitting the target
-		ACharacter* PlayerCharacter = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
-		if (PlayerCharacter == nullptr) 
-		{
-			GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Red, "Player character not accessible");
-			return;
-		}
-		auto MyCharacter = Cast<AMyCharacter>(PlayerCharacter);
+			// Gain score for hitting the target
+			auto MyCharacter = Cast<AMyCharacter>(this->Shooter);
 
-		MyCharacter->GainScore();
+			MyCharacter->GainScore();
 
-		// Destroy target and spawn new one in a random range
-		OtherActor->Destroy();
+			// Destroy target and spawn new one in a random range
+			OtherActor->Destroy();
 
-		FRotator Rotation(90, 0, 0);
-		FVector Location(-300 + FMath::RandRange(-100, 100), 120 + FMath::RandRange(-100, 100), 280 + FMath::RandRange(-100, 100));
+			FRotator Rotation(90, 0, 0);
+			FVector Location(-300 + FMath::RandRange(-100, 100), 120 + FMath::RandRange(-100, 100), 280 + FMath::RandRange(-100, 100));
 
-		AActor* pawn = GetWorld()->SpawnActor<ATarget>(this->NewTargetType, Location, Rotation);
-		if (pawn == nullptr) 
-		{
-			GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Red, "New target not spawned");
+			AActor* pawn = GetWorld()->SpawnActor<ATarget>(this->NewTargetType, Location, Rotation);
+			if (pawn == nullptr)
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Red, "New target not spawned");
+			}
 		}
 	} 
 	else if (OtherActor->IsA<AAIPawn>())
@@ -73,9 +73,25 @@ void ABullet::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrim
 		auto pawn = Cast<AAIPawn>(OtherActor);
 		pawn->GotHit(Hit.BoneName);
 	}
+	else if (OtherActor->IsA<AMyCharacter>())
+	{ // Hit another player
+		if (GetLocalRole() == ROLE_Authority)
+		{
+			//GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Yellow, "Server hit another player!!!!!!");
+			UKismetSystemLibrary::PrintText(GetWorld(), FText::FromString("Server hit another player!!!"));
+			auto PlayerGotHit = Cast<AMyCharacter>(OtherActor);
+			PlayerGotHit->TakeDamage();
+
+			if (!PlayerGotHit->Alive)
+			{
+				auto PlayerShooter = Cast<AMyCharacter>(this->Shooter);
+				PlayerShooter->KillOne();
+			}
+		}
+	}
 	else
 	{ // Not hit the target, finish the game
-		////this->NoHit();
+		this->NoHit();
 		//TEnumAsByte<EQuitPreference::Type> QuitPreference;
 		//UKismetSystemLibrary::QuitGame(GetWorld(), UGameplayStatics::GetPlayerController(GetWorld(), 0), QuitPreference, false);
 	}

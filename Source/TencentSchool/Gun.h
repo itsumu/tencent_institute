@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Math/Rotator.h"
+
 #include "Gun.generated.h"
 
 UCLASS()
@@ -24,9 +25,12 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+		ACharacter* Shooter;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FRotator MuzzleRotation;
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, category = "MyEvent")
-		void StartFire();
+		void StartFire(ACharacter* NewShooter);
 };

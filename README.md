@@ -62,6 +62,11 @@ Android executable + Video demo [*Link*](https://share.weiyun.com/laGOkHSQ)
 
 ## Assignment 6
 
+### Rules
+- Hold your gun and watch out the enemies. Kill them or get killed.
+
 ### Functions
 - Game on network
-- 
+- A character would take damage (health decrease) when get hit by other player
+- Die & Respawn
+- Scoreboard displaying player's Kill & Die
