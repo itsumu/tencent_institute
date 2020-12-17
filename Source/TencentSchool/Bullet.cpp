@@ -9,7 +9,7 @@
 
 #include "MyCharacter.h"
 #include "Target.h"
-#include "AIPawn.h"
+#include "AICharacter.h"
 
 // Sets default values
 ABullet::ABullet()
@@ -44,10 +44,13 @@ void ABullet::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrim
 		{
 			//GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Yellow, "Bullet hit target");
 
-			// Gain score for hitting the target
-			auto MyCharacter = Cast<AMyCharacter>(this->Shooter);
+			// Gain score for hitting the target if the shooter is a player
+			if (this->Shooter->IsA<AMyCharacter>())
+			{
+				auto MyCharacter = Cast<AMyCharacter>(this->Shooter);
 
-			MyCharacter->GainScore();
+				MyCharacter->GainScore();
+			}
 
 			// Destroy target and spawn new one in a random range
 			OtherActor->Destroy();
@@ -62,18 +65,20 @@ void ABullet::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrim
 			}
 		}
 	} 
-	else if (OtherActor->IsA<AAIPawn>())
+	else if (OtherActor->IsA<AAICharacter>())
 	{ // Hit the AI
-		auto pawn = Cast<AAIPawn>(OtherActor);
-		pawn->GotHit(Hit.BoneName);
+		auto AI = Cast<AAICharacter>(OtherActor);
+		AI->GotHit(Hit.BoneName);
+		//UKismetSystemLibrary::PrintText(GetWorld(), FText::FromString("AI got hit!!!"));
+		//UKismetSystemLibrary::PrintText(GetWorld(), FText::FromName(Hit.BoneName));
 	}
 	else if (OtherActor->IsA<AMyCharacter>())
 	{ // Hit another player
-		if (GetLocalRole() == ROLE_Authority)
+		auto PlayerGotHit = Cast<AMyCharacter>(OtherActor);
+		if (GetLocalRole() == ROLE_Authority && PlayerGotHit->Alive)
 		{
 			//GEngine->AddOnScreenDebugMessage(-1, 20, FColor::Yellow, "Server hit another player!!!!!!");
 			UKismetSystemLibrary::PrintText(GetWorld(), FText::FromString("Server hit another player!!!"));
-			auto PlayerGotHit = Cast<AMyCharacter>(OtherActor);
 			PlayerGotHit->GotDamage();
 
 			if (!PlayerGotHit->Alive)
@@ -85,7 +90,7 @@ void ABullet::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrim
 	}
 	else
 	{ // Not hit the target, finish the game
-		this->NoHit();
+		//this->NoHit();
 		//TEnumAsByte<EQuitPreference::Type> QuitPreference;
 		//UKismetSystemLibrary::QuitGame(GetWorld(), UGameplayStatics::GetPlayerController(GetWorld(), 0), QuitPreference, false);
 	}

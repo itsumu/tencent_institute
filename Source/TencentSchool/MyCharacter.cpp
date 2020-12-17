@@ -107,18 +107,23 @@ void AMyCharacter::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent,
 	const FHitResult &SweepResult)
 {
 	if (OtherActor->GetClass()->IsChildOf<AGun>())
-	{  // Pick up gun if overlap with a gun
+	{ // Pick up gun if overlap with a gun
 		auto NewGun = Cast<AGun>(OtherActor);
 
-		// Drop the old gun
-		AGun* OldGun = this->EquippedGun;
-		OldGun->DetachFromActor(FDetachmentTransformRules(EDetachmentRule::KeepWorld, EDetachmentRule::KeepWorld, EDetachmentRule::KeepWorld, true));
-		OldGun->SetActorLocationAndRotation(NewGun->GetActorLocation(), NewGun->GetActorQuat());
+		if (NewGun->Shooter == nullptr)
+		{ // Gun is not owned by other character
+			// Drop the old gun
+			AGun* OldGun = this->EquippedGun;
+			OldGun->DetachFromActor(FDetachmentTransformRules(EDetachmentRule::KeepWorld, EDetachmentRule::KeepWorld, EDetachmentRule::KeepWorld, true));
+			OldGun->SetActorLocationAndRotation(NewGun->GetActorLocation(), NewGun->GetActorQuat());
+			OldGun->Shooter = nullptr;
 
-		// Attach new gun to the hand grip
-		this->EquippedGun = NewGun;
-		NewGun->AttachToComponent(GetMesh(), FAttachmentTransformRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget,
-			EAttachmentRule::SnapToTarget, true), "GripPoint");
+			// Attach new gun to the hand grip
+			this->EquippedGun = NewGun;
+			NewGun->AttachToComponent(GetMesh(), FAttachmentTransformRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget,
+				EAttachmentRule::SnapToTarget, true), "GripPoint");
+			NewGun->Shooter = this;
+		}
 	}
 
 }
