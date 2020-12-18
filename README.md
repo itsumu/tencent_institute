@@ -72,3 +72,20 @@ Android executable + Video demo [*Link*](https://share.weiyun.com/laGOkHSQ)
 - Scoreboard displaying player's Kill & Die
 
 Android executable + Video demo [*Link*](https://share.weiyun.com/L1JIDOIh)
+
+## Assignment 7
+
+### Rules
+- Shoot the enemies to fear them
+- Bullet hurts anyone
+
+### Functions
+- Patrol: Wandering when AI does not see the player
+- Chase & Shoot: Chase & shoot the player when player is in sight of AI
+- Patience: AI would lose patience and do not chase player when the player is out
+of sight for three seconds
+- Find cover: AI would find cover when it got hurt
+- Different types of AI (e.g. assault that patrol and chases player & grenadier 
+that guards the base)
+
+Android executable + Video demo [*Link*](https://share.weiyun.com/)
