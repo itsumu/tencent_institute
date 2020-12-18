@@ -88,4 +88,4 @@ of sight for three seconds
 - Different types of AI (e.g. assault that patrol and chases player & grenadier 
 that guards the base)
 
-Android executable + Video demo [*Link*](https://share.weiyun.com/)
+Android executable + Video demo [*Link*](https://share.weiyun.com/DRTDdWDM)
