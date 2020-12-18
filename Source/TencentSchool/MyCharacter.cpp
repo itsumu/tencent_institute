@@ -81,7 +81,14 @@ void AMyCharacter::Die()
 		this->Health = this->MaxHealth;
 		if (this->ReviveEffect != nullptr)
 		{
-			//this->ReviveEffect->ActivateSystem();
+			// Play effect
+			UGameplayStatics::SpawnEmitterAttached(this->ReviveEffect,
+				RootComponent,
+				NAME_None,
+				FVector::ZeroVector,
+				FRotator::ZeroRotator,
+				EAttachLocation::SnapToTarget,
+				false);
 			//UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ReviveEffect, GetActorTransform());
 		}
 	};

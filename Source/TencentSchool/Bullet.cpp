@@ -81,7 +81,7 @@ void ABullet::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrim
 			UKismetSystemLibrary::PrintText(GetWorld(), FText::FromString("Server hit another player!!!"));
 			PlayerGotHit->GotDamage();
 
-			if (!PlayerGotHit->Alive)
+			if (!PlayerGotHit->Alive && this->Shooter->IsA<AMyCharacter>())
 			{
 				auto PlayerShooter = Cast<AMyCharacter>(this->Shooter);
 				PlayerShooter->KillOne();
